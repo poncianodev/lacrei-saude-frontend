@@ -1,10 +1,90 @@
-// Valores provisórios e neutros; não representam a identidade visual da marca.
+const type = (fontSize: string, fontWeight: number, lineHeight = 1.5) => ({
+  fontSize,
+  fontWeight,
+  lineHeight,
+});
+
+export const tokens = {
+  typography: {
+    "headline-xl": type("3rem", 700, 1.2),
+    "headline-lg": type("2.5rem", 700, 1.2),
+    "headline-base": type("2rem", 700, 1.2),
+    "headline-sm": type("1.5rem", 400),
+    "headline-sm-highlight": type("1.5rem", 700),
+    "text-xl": type("1.125rem", 400),
+    "text-xl-highlight": type("1.125rem", 700),
+    "text-base": type("1rem", 400),
+    "text-base-highlight": type("1rem", 700),
+    "text-sm": type("0.875rem", 400),
+    "text-sm-highlight": type("0.875rem", 600),
+    "text-xs": type("0.75rem", 400),
+    "text-xs-highlight": type("0.75rem", 700),
+  },
+  gradientStops: {
+    primary: ["#018383", "#014687"],
+    subtle: ["#F5FFFB", "#FFFFFF"],
+    secondary: ["#008392", "#00BC86"],
+  },
+  spacing: {
+    0: "0px",
+    2: "2px",
+    4: "4px",
+    8: "8px",
+    12: "12px",
+    16: "16px",
+    24: "24px",
+    32: "32px",
+    40: "40px",
+    48: "48px",
+    56: "56px",
+    64: "64px",
+    96: "96px",
+    128: "128px",
+  },
+  radii: {
+    none: "0px",
+    xs: "4px",
+    sm: "8px",
+    md: "16px",
+    lg: "24px",
+    pill: "60px",
+    circle: "50%",
+  },
+  borderWidths: { none: "0px", sm: "1px", md: "2px", lg: "4px", xl: "8px" },
+  opacity: { full: 1, xl: 0.9, lg: 0.7, md: 0.5, sm: 0.3 },
+  breakpoints: { tablet: "600px", desktop: "1024px", ultraWide: "2560px" },
+} as const;
+
 export const theme = {
+  ...tokens,
   colors: {
     background: "#ffffff",
+    surface: "#f5fffb",
     text: "#222222",
+    muted: "#525252",
+    primary: "#006b68",
+    primaryHover: "#005451",
+    onPrimary: "#ffffff",
+    border: "#707070",
+    icon: "#006b68",
+    focus: "#014687",
+    success: "#216e39",
+    information: "#014687",
+    error: "#a32121",
+    errorHover: "#821919",
   },
-  fonts: {
-    body: "Arial, Helvetica, sans-serif",
+  shadows: {
+    "shadow-sm": "0 1px 3px rgb(0 0 0 / 12%)",
+    "shadow-md": "0 4px 8px rgb(0 0 0 / 12%)",
+    "shadow-lg": "0 8px 24px rgb(0 0 0 / 12%)",
+    "inner-shadow": "inset 0 1px 3px rgb(0 0 0 / 12%)",
+    "header-shadow": "0 2px 8px rgb(0 0 0 / 8%)",
+    "drop-shadow": "0 4px 4px rgb(0 0 0 / 16%)",
+  },
+  fonts: { body: 'var(--font-nunito, "Nunito"), Arial, sans-serif' },
+  gradients: {
+    primary: "linear-gradient(90deg, #018383, #014687)",
+    subtle: "linear-gradient(90deg, #F5FFFB, #FFFFFF)",
+    secondary: "linear-gradient(90deg, #008392, #00BC86)",
   },
 } as const;

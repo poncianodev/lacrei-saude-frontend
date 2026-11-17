@@ -8,8 +8,13 @@ describe("Página inicial", () => {
     render(<Home />, { wrapper: Providers });
 
     expect(
-      screen.getByRole("heading", { level: 1, name: "Lacrei Saúde" }),
+      screen.getByRole("heading", {
+        level: 1,
+        name: "Seu cuidado começa com respeito a quem você é.",
+      }),
     ).toBeInTheDocument();
-    expect(screen.getByRole("main")).toHaveTextContent("Projeto em preparação.");
+    expect(screen.getByRole("main")).toHaveTextContent(
+      "Projeto em preparação.",
+    );
   });
 });
