@@ -1,127 +1,66 @@
-# Lacrei Saúde — Frontend
+# Lacrei Saúde — Desafio Front-end
 
-Boilerplate para o desafio técnico, com Next.js 15 (App Router), React 19,
-TypeScript e Styled Components, com duas páginas demonstrativas do desafio.
+Projeto desenvolvido para o desafio técnico de Front-end da Lacrei Saúde, utilizando o Design System Marsha como referência para tipografia, espaçamentos, componentes e identidade visual.
 
-## Instalação
+## Sobre o projeto
 
-Ambiente de referência: Node.js 24 e npm 11. Utilize o lockfile para reproduzir as dependências:
+A aplicação reúne duas rotas principais construídas com Next.js App Router:
+
+- **Home (`/`)**: apresenta a proposta do espaço de cuidado, a jornada em três etapas, os principais diferenciais e atalhos para explorar os perfis.
+- **Profissionais (`/profissionais`)**: exibe uma listagem demonstrativa com busca por nome ou especialidade, filtro por área de atuação e visualização de detalhes em modal.
+
+Todos os perfis exibidos são fictícios (definidos localmente em `src/mocks/professionals.ts`) e não há integração com backend, autenticação ou agendamentos reais.
+
+## Tecnologias
+
+- [Next.js 15](https://nextjs.org/) (App Router) e React 19
+- TypeScript
+- Styled Components (com registro SSR no App Router)
+- Vitest, React Testing Library, `@testing-library/jest-dom` e jsdom
+- ESLint (`eslint-config-next`)
+
+## Como executar
+
+Ambiente de referência: Node.js 24 e npm 11. Nenhuma variável de ambiente ou API externa é necessária; a fonte Nunito é carregada localmente a partir de `src/styles/fonts/`.
+
+Instale as dependências a partir do lockfile:
 
 ```bash
 npm ci
 ```
 
-No Windows corporativo com inspeção HTTPS, execute instalações no Git Bash utilizando os certificados do sistema:
-
-```bash
-NODE_USE_SYSTEM_CA=1 npm ci
-```
-
-Não desabilite a validação SSL. Em caso de erro de certificado ou falta de espaço,
-interrompa a instalação e resolva o problema do ambiente antes de continuar.
-
-## Desenvolvimento
+Inicie o servidor de desenvolvimento:
 
 ```bash
 npm run dev
 ```
 
-Acesse http://localhost:3000. Nenhuma variável de ambiente ou API é necessária.
+A aplicação ficará disponível em `http://localhost:3000`.
 
-## Validação
-
-```bash
-npm run lint
-npm run typecheck
-npm test
-npm run build
-```
-
-Para testes em modo de observação, execute `npm run test:watch`.
-O Vitest utiliza jsdom, React Testing Library e os matchers do jest-dom,
-com limpeza do DOM após cada teste. Os testes ficam junto aos arquivos testados.
-
-## Produção local
+### Scripts de validação e build
 
 ```bash
-npm run build
-npm start
+npm run lint        # Verificação com ESLint
+npm run typecheck   # Checagem de tipos com TypeScript (tsc --noEmit)
+npm test            # Executa a suíte de testes com Vitest
+npm run test:watch  # Executa os testes em modo de observação
+npm run build       # Gera o build de produção
+npm start           # Sobe o servidor de produção após o build
 ```
 
-## Estrutura
+## Funcionalidades
 
-```text
-public/assets/   Logos e ícones institucionais da demonstração
-src/
-  app/          Rotas, layout, providers, reset CSS e teste inicial
-  components/   Componentes compartilhados futuros
-  lib/          Registro SSR de Styled Components
-  mocks/        Mocks futuros, sem integração com API real
-  styles/       Tema neutro tipado e estilos globais
-vitest.config.mts
-vitest.setup.ts
-```
+- **Navegação**: cabeçalho e rodapé compartilhados entre `/` e `/profissionais`, com links visíveis, menu mobile em telas menores e botão de voltar ao topo.
+- **Busca**: filtragem local imediata por nome ou especialidade, sem distinção de acentos.
+- **Filtros**: seleção de especialidade combinada com a busca textual, contador de resultados, estado vazio e opção para limpar filtros.
+- **Modal de detalhes**: exibição das informações do profissional, com fechamento por botão ou Escape e navegação acessível por teclado.
+- **Responsividade**: layout mobile-first adaptado para diferentes larguras de tela, com alvos de toque de pelo menos 44px e suporte a `prefers-reduced-motion`.
 
-As pastas vazias usam `.gitkeep` para serem preservadas pelo Git.
-O compilador do Next.js habilita Styled Components. O registro de estilos coleta
-o CSS no servidor e o insere durante o streaming do App Router. O provider aplica
-o mesmo tema no servidor e no cliente. As rotas usam entradas Server Components
-e composições visuais/interativas Client Components.
+## Links
 
-## Fundação visual Marsha — etapa 1
+- Aplicação: https://lacrei-saude-frontend.onrender.com/
+- Repositório: https://github.com/poncianodev/lacrei-saude-frontend
 
-Nunito é carregada por `next/font/local`, com `display: swap` e a variável
-`--font-nunito`. O arquivo variável original (TTF, pesos 200–1000, incluindo
-400/600/700) e a licença SIL OFL 1.1 estão em `src/styles/fonts/`.
-O build não precisa acessar Google Fonts. Origem e hashes estão documentados
-no [registro da fonte local](src/styles/fonts/README.md).
+## Observação
 
-Os tokens em `src/styles/theme.ts` seguem as referências fornecidas para esta etapa:
-13 estilos tipográficos, espaçamentos, raios, bordas, opacidades, paradas dos três
-gradientes e breakpoints 600/1024/2560px. A escala em rem considera base de 16px.
-As cores semânticas, todas as sombras e o ângulo de 90° dos gradientes são
-**provisórios**, aguardando documentação oficial. Os breakpoints seguem mobile-first;
-não há limite fixo de largura para telas ultra-wide nesta fundação.
-
-Componentes em `src/components`: `Button` (primary, secondary, danger, loading),
-`Input` (label, ajuda, erro), `Card`, `Typography`, `Header`, `Footer`,
-`LoadingState`, `EmptyState` e `ErrorState`.
-Use `Typography as="h1" $variant="headline-lg"` para separar tamanho e semântica.
-`Card` aceita `headingLevel`, `status`, conteúdo complementar e ações.
-`Button` usa `type="button"` por padrão; use `type="submit"` em formulários.
-
-Header aceita slots `brand`, `search`, `help` e `userMenu`. Footer aceita `brand`,
-`links`, `socialLinks` e `legal`. Destinos reais e conteúdo legal devem ser fornecidos
-pelas páginas; listas vazias não geram links de navegação opcionais. Header e footer
-usam logos institucionais locais, com link para Home, integrados na etapa 3.2.
-As páginas compõem esses componentes com navegação e busca local.
-
-Há foco visível global, alvos de toque de pelo menos 44px nos controles e suporte a
-`prefers-reduced-motion`. Os testes verificam teclado, labels, descrições, estados,
-composição e hidratação inicial. Uma fixture local com Header, busca, ações, Card,
-Input, estados e Footer foi medida em Chrome headless: sem overflow horizontal em
-320, 375, 768, 1024 e 1440px. Isso não substitui a validação das futuras páginas
-com seus conteúdos reais. Os tokens provisórios devem ser revisados antes da entrega final.
-
-## Páginas — etapa 2
-
-- `/`: acolhimento, jornada em três etapas, benefícios e links para explorar profissionais.
-- `/profissionais`: seis personagens fictícios em `src/mocks/professionals.ts`, busca
-  por nome/especialidade sem distinção de acentos, filtro combinado, contador e estado vazio.
-
-O painel de detalhes usa `dialog.showModal()`, nome e descrição acessíveis, Escape,
-botão de fechamento, contenção de Tab/Shift+Tab e restauração de foco. Nenhum perfil
-representa atendimento real. Não existem fotos, registros, contatos ou avaliações.
-O carregamento de rota usa `LoadingState`; a filtragem local é imediata.
-Os links de navegação permanecem visíveis em telas pequenas, sem exigir menu recolhível.
-
-Os 11 testes anteriores foram preservados. Cinco testes adicionais cobrem Home,
-destinos de navegação, busca, filtros, limpeza e modal (incluindo teclado e foco).
-O jsdom recebe um substituto de showModal/close apenas no arquivo de testes;
-o comportamento nativo é conferido no Chrome. As duas páginas foram medidas em
-320, 375, 768, 1024 e 1440px sem overflow horizontal, com um H1 por página.
-
-Pendências documentais: paleta semântica e sombras oficiais. Os valores provisórios
-continuam identificados. O projeto é uma demonstração e não possui backend,
-autenticação, agendamento ou navegação para serviços reais. Validações automatizadas
-não substituem uma avaliação completa com leitores de tela.
+Este projeto é uma demonstração desenvolvida exclusivamente para fins de avaliação no desafio técnico e não representa uma plataforma oficial de atendimento. A marca e a identidade visual pertencem à Lacrei Saúde.
