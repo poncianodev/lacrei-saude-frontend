@@ -22,13 +22,25 @@ const Control = styled.button<{ $variant: Variant }>`
   font-weight: 700;
   overflow-wrap: anywhere;
   cursor: pointer;
+  box-shadow: ${({ theme }) => theme.shadows["drop-shadow"]};
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
   &:hover:not(:disabled) {
     background: ${({ theme, $variant }) =>
       $variant === "secondary"
-        ? theme.colors.surface
+        ? theme.colors.primary
         : $variant === "danger"
           ? theme.colors.errorHover
           : theme.colors.primaryHover};
+    border-color: ${({ theme, $variant }) =>
+      $variant === "secondary"
+        ? theme.colors.primary
+        : $variant === "danger"
+          ? theme.colors.errorHover
+          : theme.colors.primaryHover};
+    color: ${({ theme }) => theme.colors.onPrimary};
   }
   &:disabled {
     cursor: not-allowed;
